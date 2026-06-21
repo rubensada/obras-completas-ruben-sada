@@ -396,17 +396,33 @@ function escapeHtml(s){
   return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 }
 
+function escapeRegex(s){
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Coincide solo si la palabra/frase está completa: lo que la rodea
+// (si hay algo) no puede ser una letra o número. Así "papa" no
+// encuentra "apapachos", pero sí encuentra "papá" o "¡Papa!".
+function wordMatchRegex(normQuery, flags){
+  return new RegExp('(?<![a-z0-9])' + escapeRegex(normQuery) + '(?![a-z0-9])', flags);
+}
+
 function highlight(text, query){
   if(!query) return escapeHtml(text);
   const normText = normalize(text);
   const normQ = normalize(query);
+  if(!normQ) return escapeHtml(text);
+  const regex = wordMatchRegex(normQ, 'g');
   let out = '';
   let i = 0;
-  let idx;
-  while((idx = normText.indexOf(normQ, i)) !== -1){
+  let m;
+  while((m = regex.exec(normText)) !== null){
+    const idx = m.index;
+    const len = m[0].length;
     out += escapeHtml(text.slice(i, idx));
-    out += '<mark>' + escapeHtml(text.slice(idx, idx + query.length)) + '</mark>';
-    i = idx + query.length;
+    out += '<mark>' + escapeHtml(text.slice(idx, idx + len)) + '</mark>';
+    i = idx + len;
+    if(regex.lastIndex === m.index) regex.lastIndex++;
   }
   out += escapeHtml(text.slice(i));
   return out;
@@ -414,10 +430,13 @@ function highlight(text, query){
 
 function snippetAround(text, normQ, pad){
   const normText = normalize(text);
-  const idx = normText.indexOf(normQ);
-  if(idx === -1) return text.slice(0, 140) + (text.length > 140 ? '…' : '');
+  const regex = wordMatchRegex(normQ, '');
+  const m = regex.exec(normText);
+  if(!m) return text.slice(0, 140) + (text.length > 140 ? '…' : '');
+  const idx = m.index;
+  const len = m[0].length;
   const start = Math.max(0, idx - pad);
-  const end = Math.min(text.length, idx + normQ.length + pad);
+  const end = Math.min(text.length, idx + len + pad);
   let snippet = text.slice(start, end).replace(/\n/g, ' ');
   if(start > 0) snippet = '…' + snippet;
   if(end < text.length) snippet = snippet + '…';
@@ -435,7 +454,8 @@ function runSearch(){
   }
 
   const normQ = normalize(query);
-  const finalMatches = POEMS.filter(p => p._normText.includes(normQ) || p._normTitle.includes(normQ));
+  const testRegex = wordMatchRegex(normQ, '');
+  const finalMatches = POEMS.filter(p => testRegex.test(p._normText) || testRegex.test(p._normTitle));
 
   metaLeft.textContent = finalMatches.length === 0
     ? `Sin resultados para "${query}"`

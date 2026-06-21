@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obras Completas de Rubén Sada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EDE6D6;
+    --paper-edge: #E2D8C2;
+    --ink: #211B14;
+    --ink-soft: #4A4032;
+    --accent: #8C2F2F;
+    --accent-soft: #B5544F;
+    --brass: #9C8245;
+    --hairline: #C9BEA0;
+    --mark: #F2C744;
+    --card-bg: #F6F1E6;
+    --shadow: rgba(33,27,20,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(33,27,20,0.025) 0, transparent 45%),
+      radial-gradient(circle at 80% 60%, rgba(33,27,20,0.03) 0, transparent 50%),
+      repeating-linear-gradient(0deg, rgba(33,27,20,0.015) 0px, transparent 1px, transparent 2px);
+    color: var(--ink);
+    font-family: 'Spectral', serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* ---------- Masthead ---------- */
+  header.masthead{
+    text-align:center;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 22px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  header.masthead::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-9px;
+    height:3px;
+    background: var(--ink);
+    opacity:0.0;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  h1.title{
+    font-family:'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: clamp(40px, 8vw, 76px);
+    letter-spacing: 3px;
+    margin: 0;
+    line-height: 0.95;
+    color: var(--ink);
+  }
+  h1.title em{
+    font-style: normal;
+    color: var(--accent);
+  }
+  .subtitle{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Search zone ---------- */
+  .search-zone{
+    display:flex;
+    align-items:center;
+    gap: 18px;
+    margin: 36px 0 8px;
+  }
+  .search-card{
+    flex: 1;
+    background: var(--card-bg);
+    border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--shadow);
+    padding: 4px;
+  }
+  .search-card label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 8px 14px 0;
+  }
+  .search-card input{
+    width:100%;
+    border:none;
+    background: transparent;
+    font-family:'Spectral', serif;
+    font-size: 20px;
+    padding: 6px 14px 12px;
+    color: var(--ink);
+    outline:none;
+  }
+  .search-card input::placeholder{
+    color: #9c917a;
+    font-style: italic;
+  }
+
+  .stamp{
+    flex-shrink:0;
+    width: 92px;
+    height: 92px;
+    border-radius:50%;
+    border: 2px dashed var(--accent);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transform: rotate(-8deg);
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--accent);
+    text-align:center;
+    line-height:1.1;
+  }
+  .stamp .n{
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .stamp .label{
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .meta-row{
+    display:flex;
+    justify-content: space-between;
+    align-items:baseline;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+    padding: 0 2px;
+  }
+  .meta-row .pending{
+    color: var(--brass);
+  }
+
+  /* ---------- Results ---------- */
+  #results{
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+  }
+
+  .result-card{
+    background: var(--card-bg);
+    border: 1px solid var(--hairline);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    cursor:pointer;
+    transition: box-shadow 0.15s ease, transform 0.1s ease;
+  }
+  .result-card:hover{
+    box-shadow: 3px 3px 0 var(--shadow);
+    transform: translateX(-2px);
+  }
+  .result-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap: 12px;
+  }
+  .result-title{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    font-size: 22px;
+    color: var(--ink);
+  }
+  .result-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    white-space:nowrap;
+  }
+  .result-snippet{
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .result-snippet mark{
+    background: var(--mark);
+    color: var(--ink);
+    font-style: normal;
+    padding: 0 2px;
+  }
+
+  .empty-state, .start-state{
+    text-align:center;
+    padding: 56px 20px;
+    color: var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .empty-state .big, .start-state .big{
+    font-family:'Spectral', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display:block;
+  }
+
+  /* ---------- Poem panel (modal) ---------- */
+  .overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(33,27,20,0.55);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding: 40px 18px;
+    overflow-y:auto;
+    z-index: 50;
+  }
+  .overlay.open{display:flex;}
+  .poem-page{
+    background: #FBF8F0;
+    max-width: 640px;
+    width: 100%;
+    padding: 44px 40px 50px;
+    position: relative;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    border: 1px solid var(--hairline);
+  }
+  .poem-page::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 6px;
+    background: var(--accent);
+  }
+  .close-btn{
+    position:absolute;
+    top: 14px; right: 16px;
+    background:none;
+    border: 1px solid var(--ink);
+    width: 30px; height: 30px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 14px;
+    cursor:pointer;
+    color: var(--ink);
+  }
+  .close-btn:hover{ background: var(--ink); color: var(--paper); }
+  .poem-page .pnum{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .poem-page h2{
+    font-family:'Bebas Neue', sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 34px;
+    margin: 6px 0 22px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 16px;
+  }
+  .poem-body{
+    white-space: pre-line;
+    font-size: 18px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+  .poem-body mark{
+    background: var(--mark);
+    color: var(--ink);
+    padding: 0 2px;
+  }
+
+  footer{
+    text-align:center;
+    margin-top: 60px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 560px){
+    .search-zone{ flex-direction:column; }
+    .stamp{ transform: none; }
+    .poem-page{ padding: 32px 22px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Archivo &amp; índice de consulta</div>
+    <h1 class="title">OBRAS COMPLETAS <em>DE</em><br>RUBÉN SADA</h1>
+    <div class="subtitle">Versos, décimas y contrapuntos &middot; buscador de obra completa</div>
+  </header>
+
+  <div class="search-zone">
+    <div class="search-card">
+      <label for="q">Buscar una palabra o frase</label>
+      <input id="q" type="text" placeholder="ej: zoológico, payador, G-Ente…" autocomplete="off">
+    </div>
+    <div class="stamp">
+      <div class="n" id="stamp-n">635</div>
+      <div class="label">poemas</div>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <span id="meta-left">Escribí para empezar a buscar</span>
+    <span class="pending" id="meta-pending"></span>
+  </div>
+
+  <div id="results"></div>
+
+  <footer>Obras Completas de Rubén Sada &middot; archivo en construcción</footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="poem-page">
+    <button class="close-btn" id="close-btn" aria-label="Cerrar">&times;</button>
+    <div class="pnum" id="poem-num"></div>
+    <h2 id="poem-title"></h2>
+    <div class="poem-body" id="poem-body"></div>
+  </div>
+</div>
+
+<script>
+let POEMS = [];
+
+function normalize(str){
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+fetch('poems.json')
+  .then(r => r.json())
+  .then(data => {
+    POEMS = data.map(p => ({
+      ...p,
+      _normTitle: normalize(p.title),
+      _normText: normalize(p.text)
+    }));
+    document.getElementById('stamp-n').textContent = POEMS.length;
+  })
+  .catch(err => {
+    document.getElementById('meta-left').textContent = 'No se pudo cargar poems.json (¿estás abriendo el archivo con un servidor local?)';
+  });
+
+const qInput = document.getElementById('q');
+const resultsEl = document.getElementById('results');
+const metaLeft = document.getElementById('meta-left');
+
+function escapeHtml(s){
+  return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+}
+
+function highlight(text, query){
+  if(!query) return escapeHtml(text);
+  const normText = normalize(text);
+  const normQ = normalize(query);
+  let out = '';
+  let i = 0;
+  let idx;
+  while((idx = normText.indexOf(normQ, i)) !== -1){
+    out += escapeHtml(text.slice(i, idx));
+    out += '<mark>' + escapeHtml(text.slice(idx, idx + query.length)) + '</mark>';
+    i = idx + query.length;
+  }
+  out += escapeHtml(text.slice(i));
+  return out;
+}
+
+function snippetAround(text, normQ, pad){
+  const normText = normalize(text);
+  const idx = normText.indexOf(normQ);
+  if(idx === -1) return text.slice(0, 140) + (text.length > 140 ? '…' : '');
+  const start = Math.max(0, idx - pad);
+  const end = Math.min(text.length, idx + normQ.length + pad);
+  let snippet = text.slice(start, end).replace(/\n/g, ' ');
+  if(start > 0) snippet = '…' + snippet;
+  if(end < text.length) snippet = snippet + '…';
+  return snippet;
+}
+
+function runSearch(){
+  const query = qInput.value.trim();
+  resultsEl.innerHTML = '';
+
+  if(!query){
+    metaLeft.textContent = 'Escribí para empezar a buscar';
+    resultsEl.innerHTML = `<div class="start-state"><span class="big">"...al cruzar por el Atlántico"</span>Buscá una palabra o una frase exacta dentro de los ${POEMS.length} poemas del archivo.</div>`;
+    return;
+  }
+
+  const normQ = normalize(query);
+  const finalMatches = POEMS.filter(p => p._normText.includes(normQ) || p._normTitle.includes(normQ));
+
+  metaLeft.textContent = finalMatches.length === 0
+    ? `Sin resultados para "${query}"`
+    : `${finalMatches.length} poema${finalMatches.length===1?'':'s'} encontrado${finalMatches.length===1?'':'s'}`;
+
+  if(finalMatches.length === 0){
+    resultsEl.innerHTML = `<div class="empty-state"><span class="big">No aparece en ningún poema (todavía).</span>Probá con otra palabra, o revisá la ortografía.</div>`;
+    return;
+  }
+
+  finalMatches.slice(0, 200).forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'result-card';
+    const snippet = snippetAround(p.text, normQ, 60);
+    div.innerHTML = `
+      <div class="result-head">
+        <div class="result-title">${escapeHtml(p.title)}</div>
+        <div class="result-num">N.&deg; ${p.id}</div>
+      </div>
+      <div class="result-snippet">${highlight(snippet, query)}</div>
+    `;
+    div.addEventListener('click', () => openPoem(p, query));
+    resultsEl.appendChild(div);
+  });
+}
+
+const overlay = document.getElementById('overlay');
+const poemTitle = document.getElementById('poem-title');
+const poemNum = document.getElementById('poem-num');
+const poemBody = document.getElementById('poem-body');
+
+function openPoem(p, query){
+  poemTitle.textContent = p.title;
+  poemNum.textContent = 'Poema N.\u00b0 ' + p.id;
+  poemBody.innerHTML = highlight(p.text, query || '');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePoem(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('close-btn').addEventListener('click', closePoem);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePoem(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closePoem(); });
+
+qInput.addEventListener('input', runSearch);
+runSearch();
+</script>
+
+</body>
+</html>

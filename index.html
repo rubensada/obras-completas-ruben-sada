@@ -306,6 +306,18 @@
     padding: 0 2px;
   }
 
+  .poem-date{
+    margin-top: 26px;
+    padding-top: 14px;
+    border-top: 1px solid var(--hairline);
+    text-align: right;
+    font-family:'IBM Plex Mono', monospace;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.5px;
+  }
+
   footer{
     text-align:center;
     margin-top: 60px;
@@ -364,6 +376,7 @@
     <div class="pnum" id="poem-num"></div>
     <h2 id="poem-title"></h2>
     <div class="poem-body" id="poem-body"></div>
+    <div class="poem-date" id="poem-date"></div>
   </div>
 </div>
 
@@ -374,6 +387,14 @@ function normalize(str){
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
 
+const qInput = document.getElementById('q');
+const resultsEl = document.getElementById('results');
+const metaLeft = document.getElementById('meta-left');
+
+const originalPlaceholder = qInput.placeholder;
+qInput.disabled = true;
+qInput.placeholder = 'Cargando poemas…';
+
 fetch('poems.json')
   .then(r => r.json())
   .then(data => {
@@ -383,14 +404,15 @@ fetch('poems.json')
       _normText: normalize(p.text)
     }));
     document.getElementById('stamp-n').textContent = POEMS.length;
+    qInput.disabled = false;
+    qInput.placeholder = originalPlaceholder;
+    runSearch(); // por si ya habías escrito algo mientras cargaba
   })
   .catch(err => {
+    qInput.disabled = false;
+    qInput.placeholder = originalPlaceholder;
     document.getElementById('meta-left').textContent = 'No se pudo cargar poems.json (¿estás abriendo el archivo con un servidor local?)';
   });
-
-const qInput = document.getElementById('q');
-const resultsEl = document.getElementById('results');
-const metaLeft = document.getElementById('meta-left');
 
 function escapeHtml(s){
   return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -486,11 +508,14 @@ const overlay = document.getElementById('overlay');
 const poemTitle = document.getElementById('poem-title');
 const poemNum = document.getElementById('poem-num');
 const poemBody = document.getElementById('poem-body');
+const poemDateEl = document.getElementById('poem-date');
 
 function openPoem(p, query){
   poemTitle.textContent = p.title;
-  poemNum.textContent = 'Poema N.\u00b0 ' + p.id + (p.date ? ' \u00b7 ' + p.date : '');
+  poemNum.textContent = 'Poema N.\u00b0 ' + p.id;
   poemBody.innerHTML = highlight(p.text, query || '');
+  poemDateEl.textContent = p.date ? ('\u2014 ' + p.date) : '';
+  poemDateEl.style.display = p.date ? 'block' : 'none';
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }

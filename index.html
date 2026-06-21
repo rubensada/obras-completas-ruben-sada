@@ -473,7 +473,7 @@ function runSearch(){
     div.innerHTML = `
       <div class="result-head">
         <div class="result-title">${escapeHtml(p.title)}</div>
-        <div class="result-num">N.&deg; ${p.id}</div>
+        <div class="result-num">N.&deg; ${p.id}${p.date ? ' &middot; ' + escapeHtml(p.date) : ''}</div>
       </div>
       <div class="result-snippet">${highlight(snippet, query)}</div>
     `;
@@ -489,7 +489,7 @@ const poemBody = document.getElementById('poem-body');
 
 function openPoem(p, query){
   poemTitle.textContent = p.title;
-  poemNum.textContent = 'Poema N.\u00b0 ' + p.id;
+  poemNum.textContent = 'Poema N.\u00b0 ' + p.id + (p.date ? ' \u00b7 ' + p.date : '');
   poemBody.innerHTML = highlight(p.text, query || '');
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';

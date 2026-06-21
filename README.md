@@ -29,6 +29,42 @@ base de datos ni backend.
 
 No hace falta build, ni Node, ni nada más: son archivos estáticos.
 
+## Cómo agregar la fecha en que escribiste cada poema (opcional)
+
+Si querés, podés agregar debajo de los versos de cualquier poema una
+línea con esta forma exacta:
+
+```
+@FECHA: 1971
+```
+
+(o con la fecha completa, `@FECHA: 15/03/1998`, o como la sepas,
+`@FECHA: Marzo de 2005`). Tiene que empezar siempre con `@FECHA:`
+— eso es lo único que el script necesita reconocer igual cada vez.
+Va en su propio renglón, después del último verso del poema:
+
+```
+§ TERMINAN LAS CLASES
+
+Terminan las clases
+comienzan las vacaciones
+...
+chau amiguito,
+que pases de grado,
+te felicito.
+@FECHA: 1971
+
+
+§ SIGUIENTE POEMA
+...
+```
+
+No es obligatorio: los poemas sin esa línea simplemente no muestran
+fecha en el sitio, no rompe nada. Cuando corras
+`generar_poems_json.py`, la fecha se separa automáticamente del texto
+del poema y se muestra junto al número de poema, tanto en los
+resultados de búsqueda como al abrir el poema completo.
+
 ## Cómo agregar los ~2000 poemas que faltan
 
 1. Sumá los poemas nuevos a `OBRAS_COMPLETAS_LIMPIO.txt`, respetando

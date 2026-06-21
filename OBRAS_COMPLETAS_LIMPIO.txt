@@ -21,11 +21,11 @@ Hasta el año que viene,
 chau amiguito,
 que pases de grado,
 te felicito.
+
 Alumno: Rubén Sada, 1971. 
 Mi primera poesía, publicada en el periódico escolar.
 
-
-
+@FECHA: 30/11/1971
 
 
 § INCREÍBLEMENTE BELLA
@@ -34,39 +34,49 @@ Ella es increíblemente bella,
 ¡qué inmensamente feliz me hace tenerla!
 Te la voy a describir porque es perfecta,
 lee atentamente si quieres conocerla.
+
 Ella se inspira con la primavera,
 en mí ha dejado gruesas huellas,
 no aguanto mucho tiempo su ausencia,
 y conozco su más profunda esencia.
+
 Ella rompió de mi mente las cadenas,
 y al mismo tiempo la tengo presa.
 Sus grilletes mis manos encadenan.
 Hace mucho estoy confinado a su celda.
+
 Cuando mis sueños despegan de la tierra
 mi mente todo el día en ella piensa.
 Estoy sentado a su lado en la mesa,
 y de noche conmigo se acuesta.
+
 Su inocencia es la de una doncella,
 su enseñanza es la mejor maestra.
 Ella es armoniosa, de sabias letras,
 empieza suavecita, termina con fuerza.
+
 Ella es valiente como una guerrera,
 puede expresar alegrías y penas,
 y su música es la de una sirena.
 Ella es sublime como las estrellas.
+
 Cuando estoy muy nervioso me serena,
 imprescindible en mi vida su presencia.
 ¿Cómo haré si no puedo tenerla?
 Si es como la sangre que corre por mis venas.
+
 Ella estará aquí cuando yo deje la tierra,
 y hasta mi cuerpo quizás desaparezca,
 pero mi corazón quedará con ella,
 y cuidará de mis hijos como herencia.
+
 Ella es increíblemente bella,
 ya te habrás dado cuenta quién es ella,
 no haría falta decirte, amigo poeta
 que “LA POESÍA” es increíblemente bella.
 
+AUTOR: RUBÉN SADA
+@FECHA: 05-01-2007
 
 § ¡POESÍA! ¡QUÉ MILAGRO!
 

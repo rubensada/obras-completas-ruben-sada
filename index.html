@@ -355,7 +355,7 @@
       <input id="q" type="text" placeholder="ej: amor, vida, libertad, tiempo…" autocomplete="off">
     </div>
     <div class="stamp">
-      <div class="n" id="stamp-n">635</div>
+      <div class="n" id="stamp-n">686</div>
       <div class="label">poemas</div>
     </div>
   </div>
@@ -514,8 +514,8 @@ function openPoem(p, query){
   poemTitle.textContent = p.title;
   poemNum.textContent = 'Poema N.\u00b0 ' + p.id;
   poemBody.innerHTML = highlight(p.text, query || '');
-  poemDateEl.textContent = p.date ? ('\u2014 ' + p.date) : '';
-  poemDateEl.style.display = p.date ? 'block' : 'none';
+  poemDateEl.textContent = '\u00a9 Rub\u00e9n Sada.' + (p.date ? ('  \u00b7  ' + p.date) : '');
+  poemDateEl.style.display = 'block';
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
